@@ -1,9 +1,3 @@
-/* This code is meant to work with HC-SR04 ultrasound modules x3 and TM1651 battery display x2
- * The project is a parking sensor that shows you how close the obstacles are and from which is
- * depending on the Maxdistance that above it the display will show as safe distance
- * below that it start changing
- * Refer to www.SurtrTech.com for more details
- */
 
 
 
