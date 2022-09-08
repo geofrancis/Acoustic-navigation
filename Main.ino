@@ -7,8 +7,8 @@
 #define echoPinR 9
 #define trigPinL 10
 #define echoPinL 11
-#define Maxdistone  200  //Maximum distance 20cm
-#define Maxdispulse 350  //Maximum distance 20cm
+#define Maxdistone  200  //Maximum distance for a solid tone
+#define Maxdispulse 350  //Maximum distance for a pulsed tone
 #define Lbuzz 12
 #define Rbuzz 13
 
@@ -49,7 +49,7 @@ void loop() {
    
     if(R>Maxdistone && R < Maxdispulse||R<=0){
     Rpulse=map(R,Maxdistone,Maxdispulse,100,800);
-     tone(Rbuzz, Rfreq, Rpulse);
+     tone(Rbuzz, 500, Rpulse);
     }
      else(R> Maxdispulse); {                          //We're safe and the displays always shows there's enough space
    noTone (Rbuzz);
@@ -57,7 +57,7 @@ void loop() {
     
      if(L>0 && L < Maxdistone||L<=0){      //Range of distance
       Lfreq=map(L,0,Maxdistone,500,10000);      //Scaling the disntace from 0-20 to 0-7
-      tone(Lbuzz, Lfreq, Lpulse);
+      tone(Lbuzz, 500, Lpulse);
     }
     if(L> Maxdispulse)                           //We're safe and the displays always shows there's enough space
    noTone (Lbuzz);
