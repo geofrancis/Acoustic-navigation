@@ -29,43 +29,39 @@ void setup() {
      pinMode(echoPinR, INPUT); 
      pinMode(trigPinL, OUTPUT);
      pinMode(echoPinL, INPUT); 
-     pinMode(Rbuzz,  OUTPUT);  //setting up buzzer pin as output
-     pinMode(Lbuzz,  OUTPUT);  //setting up buzzer pin as output
+     pinMode(Rbuzz,  OUTPUT);  //setting up Right buzzer pin as output
+     pinMode(Lbuzz,  OUTPUT);  //setting up Left buzzer pin as output
 }
 
 void loop() {
 
-    int distanceM = CDistance(trigPin,echoPin);      //Calculating all the distances by calling the function below
+    int distanceM = CDistance(trigPin,echoPin);      //Calculating all the distances 
     int distanceR = CDistance(trigPinR,echoPinR);
     int distanceL = CDistance(trigPinL,echoPinL);
 
     int R=min(distanceM,distanceR);                //We have two displays R and L, first we take the minimum distance between M/R and M/L
     int L=min(distanceM,distanceL);
 
-    if(R>0 && R < Maxdistone||R<=0){      //Range of distance
-      Rfreq=map(R,0,Maxdistone,500,10000);      //Scaling the disntace from 0-20 to 0-7
+    if(R>0 && R < Maxdistone||R<=0){      //Range of distance between zero and max tone
+      Rfreq=map(R,0,Maxdistone,500,10000);      //Scaling the disntace from 500hz to 10khz
       tone(Rbuzz, Rfreq);
     }
    
-    if(R>Maxdistone && R < Maxdispulse||R<=0){
-    Rpulse=map(R,Maxdistone,Maxdispulse,100,800);
+    if(R>Maxdistone && R < Maxdispulse||R<=0){ //range between start of pulsed tone and solid tone
+    Rpulse=map(R,Maxdistone,Maxdispulse,100,800); //scaling the distance between 100ms and 800ms pules @ 500kz
      tone(Rbuzz, 500, Rpulse);
     }
-     else(R> Maxdispulse); {                          //We're safe and the displays always shows there's enough space
+     else(R> Maxdispulse); {                          
    noTone (Rbuzz);
 }
-    
-     if(L>0 && L < Maxdistone||L<=0){      //Range of distance
-      Lfreq=map(L,0,Maxdistone,500,10000);      //Scaling the disntace from 0-20 to 0-7
+      if(L>0 && L < Maxdistone||L<=0){      //Range of distance between zero and max tone
+      Lfreq=map(L,0,Maxdistone,500,10000);     //Scaling the disntace from 500hz to 10khz
       tone(Lbuzz, 500, Lpulse);
     }
-    if(L> Maxdispulse)                           //We're safe and the displays always shows there's enough space
-   noTone (Lbuzz);
-   
     if(L>Maxdistone && L < Maxdispulse||L<=0){
     Lpulse=map(L,Maxdistone,Maxdispulse,100,800);
     }
-     if(L> Maxdispulse)                           //We're safe and the displays always shows there's enough space
+     else(L> Maxdispulse)                           
    noTone (Lbuzz);
      delay(1000);
 }
